@@ -10,5 +10,10 @@ public class AccountDAO {
 	public void addAccount(Account theAccount, boolean vipFlag) {
 		System.out.println(getClass() + ": Doing my DB work: Adding an Account.\n\n");
 	}
+	
+	public boolean doWork() {
+		System.out.println(getClass() + ": DOING DIFFERENT WORK.\n\n");
+		return false;
+	}
 
 }
