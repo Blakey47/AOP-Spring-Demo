@@ -3,10 +3,12 @@ package com.darraghblake.aopspringdemo.aspect;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(2)
 public class MyDemoLoggingAspect {
 	
 	// This is where we add all of our related advices for logging
@@ -26,11 +28,6 @@ public class MyDemoLoggingAspect {
 	@Before("forDaoPackageNoGetterSetter()")
 	public void beforeAddAccountAdvice() {
 		System.out.println("LOGGING DETAILS: Executing @Before advice on addAccount().");
-	}
-	
-	@Before("forDaoPackageNoGetterSetter()")
-	public void performApiAnalytics() {
-		System.out.println("PERFORMING ANALYTICS.");
 	}
 	
 }
