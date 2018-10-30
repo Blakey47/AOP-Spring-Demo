@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class MyCloudLogAspect {
 
-	@Before("forDaoPackageNoGetterSetter()")
+	@Before("com.darraghblake.aopspringdemo.aspect.AopExpressions.forDaoPackageNoGetterSetter()")
 	public void loggingToCloud() {
 		System.out.println("LOGGING DATA TO CLOUD IN ASYNC FASHION.");
 	}
