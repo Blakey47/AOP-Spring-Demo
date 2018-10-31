@@ -3,6 +3,7 @@ package com.darraghblake.aopspringdemo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,13 +19,16 @@ import com.darraghblake.aopspringdemo.Account;
 @Order(2)
 public class MyDemoLoggingAspect {
 	
+	@After("execution(* com.darraghblake.aopspringdemo.dao.AccountDAO.findAccounts(..))")
+	public void afterFinallyFindAccountAdvice(JoinPoint theJoinPoint) {
+		printMethodName(theJoinPoint, "@After");
+	}
+	
 	@AfterThrowing(
 			pointcut="execution(* com.darraghblake.aopspringdemo.dao.AccountDAO.findAccounts(..))",
 			throwing="theExc")
 	public void afterThrowingFindAccountsAdvice(JoinPoint theJoinPoint, Throwable theExc) {
-		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("-------------------------------");
-		System.out.println("Executing @AfterThrowing on method: " + method + "\n");
+		printMethodName(theJoinPoint, "@AfterThrowing");
 		
 		System.out.println("The Exception: " + theExc);
 	}
@@ -34,9 +38,7 @@ public class MyDemoLoggingAspect {
 			returning="result")
 	public void afterReturnFindAccountsAdvice(
 					JoinPoint theJoinPoint, List<Account> result) {
-		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("-------------------------------");
-		System.out.println("Executing @AfterReturn on method: " + method + "\n");
+		printMethodName(theJoinPoint, "@AfterReturning");
 		System.out.println("Result: " + result);
 		
 		// Post-process the data
@@ -72,6 +74,12 @@ public class MyDemoLoggingAspect {
 			account.setName(account.getName().toUpperCase());
 		}
 		
+	}
+	
+	private void printMethodName(JoinPoint theJoinPoint, String adviceType) {
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("-------------------------------");
+		System.out.println("\nExecuting " + adviceType + " on method: " + method + "\n");
 	}
 	
 }
