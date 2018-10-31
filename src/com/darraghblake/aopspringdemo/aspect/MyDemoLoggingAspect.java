@@ -25,8 +25,16 @@ public class MyDemoLoggingAspect {
 	public Object aroundLoggingAspect(
 			ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
 		
+		printMethodName(theProceedingJoinPoint, "@Around");
 		
-		return null;
+		long begin = System.currentTimeMillis();
+		Object result = theProceedingJoinPoint.proceed();
+		long end = System.currentTimeMillis();
+		long duration = end - begin;
+		
+		System.out.println("Duration: " + duration / 1000.0 + " seconds.");
+		
+		return result;
 	}
 	
 	@After("execution(* com.darraghblake.aopspringdemo.dao.AccountDAO.findAccounts(..))")
