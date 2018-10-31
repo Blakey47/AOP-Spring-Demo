@@ -10,4 +10,5 @@ Used for learning purposes.
 - Pointcut Declarations
 - Ordering Aspects
 - JoinPoints
+- @AfterReturning Advice Type
 - @AfterThrowing Advice Type
