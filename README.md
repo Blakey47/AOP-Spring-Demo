@@ -13,3 +13,4 @@ Used for learning purposes.
 - @AfterReturning Advice Type
 - @AfterThrowing Advice Type
 - @After Advice Type
+- @Around Advice Type
