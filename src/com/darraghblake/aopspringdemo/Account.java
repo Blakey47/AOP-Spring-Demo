@@ -31,4 +31,9 @@ public class Account {
 		this.level = level;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [name=" + name + ", level=" + level + "]";
+	}
+
 }

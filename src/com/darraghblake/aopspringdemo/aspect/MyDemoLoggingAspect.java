@@ -26,10 +26,25 @@ public class MyDemoLoggingAspect {
 		System.out.println("-------------------------------");
 		System.out.println("Executing @AfterReturn on method: " + method + "\n");
 		System.out.println("Result: " + result);
+		
+		// Post-process the data
+		convertAccountNamesToUpperCase(result);
+		
+		System.out.println("UpperCaseResult: " + result);
+		
 	}
 	
+	private void convertAccountNamesToUpperCase(List<Account> result) {
+		
+		for (Account account : result) {
+			account.setName(account.getName().toUpperCase());
+		}
+		
+	}
+
 	@Before("com.darraghblake.aopspringdemo.aspect.AopExpressions.forDaoPackageNoGetterSetter()")
 	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
+		
 		System.out.println("LOGGING DETAILS: Executing @Before advice on addAccount().");
 		
 		MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
