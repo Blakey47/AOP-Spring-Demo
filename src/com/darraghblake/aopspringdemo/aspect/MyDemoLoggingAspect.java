@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -16,6 +17,17 @@ import com.darraghblake.aopspringdemo.Account;
 @Component
 @Order(2)
 public class MyDemoLoggingAspect {
+	
+	@AfterThrowing(
+			pointcut="execution(* com.darraghblake.aopspringdemo.dao.AccountDAO.findAccounts(..))",
+			throwing="theExc")
+	public void afterThrowingFindAccountsAdvice(JoinPoint theJoinPoint, Throwable theExc) {
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("-------------------------------");
+		System.out.println("Executing @AfterThrowing on method: " + method + "\n");
+		
+		System.out.println("The Exception: " + theExc);
+	}
 	
 	@AfterReturning(
 			pointcut="execution(* com.darraghblake.aopspringdemo.dao.AccountDAO.findAccounts(..))",
@@ -31,14 +43,6 @@ public class MyDemoLoggingAspect {
 		convertAccountNamesToUpperCase(result);
 		
 		System.out.println("UpperCaseResult: " + result);
-		
-	}
-	
-	private void convertAccountNamesToUpperCase(List<Account> result) {
-		
-		for (Account account : result) {
-			account.setName(account.getName().toUpperCase());
-		}
 		
 	}
 
@@ -60,6 +64,14 @@ public class MyDemoLoggingAspect {
 				System.out.println("Account level: " + theAccount.getLevel());
 			}
 		}
+	}
+	
+	private void convertAccountNamesToUpperCase(List<Account> result) {
+		
+		for (Account account : result) {
+			account.setName(account.getName().toUpperCase());
+		}
+		
 	}
 	
 }

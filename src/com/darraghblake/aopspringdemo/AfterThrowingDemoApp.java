@@ -19,7 +19,9 @@ public class AfterThrowingDemoApp {
 		// Call method to find the accounts
 		List<Account> theAccounts = null;
 		try {
-			theAccounts = theAccountDAO.findAccounts();
+			boolean tripWire = true;
+			
+			theAccounts = theAccountDAO.findAccounts(tripWire);
 		} catch (Exception exc) {
 			System.out.println("\n\nMain Programing Caught Exception: " + exc);
 		}

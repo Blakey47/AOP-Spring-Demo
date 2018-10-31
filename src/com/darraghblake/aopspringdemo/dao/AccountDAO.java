@@ -13,7 +13,13 @@ public class AccountDAO {
 	private String name;
 	private String serviceCode;
 	
-	public List<Account> findAccounts() {
+	public List<Account> findAccounts(boolean tripWire) {
+		
+		// Simulating an Exception
+		if (tripWire) {
+			throw new RuntimeException("Simulated Exception has occurred.");
+		}
+		
 		List<Account> myAccounts = new ArrayList<>();
 		
 		Account tempAcc1 = new Account("Jerry", 25);
