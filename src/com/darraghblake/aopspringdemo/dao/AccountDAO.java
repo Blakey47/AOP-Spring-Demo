@@ -1,5 +1,8 @@
 package com.darraghblake.aopspringdemo.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.darraghblake.aopspringdemo.Account;
@@ -9,6 +12,20 @@ public class AccountDAO {
 	
 	private String name;
 	private String serviceCode;
+	
+	public List<Account> findAccount() {
+		List<Account> myAccounts = new ArrayList<>();
+		
+		Account tempAcc1 = new Account("Jerry", 25);
+		Account tempAcc2 = new Account("Susan", 48);
+		Account tempAcc3 = new Account("Rachel", 111);
+		
+		myAccounts.add(tempAcc1);
+		myAccounts.add(tempAcc2);
+		myAccounts.add(tempAcc3);
+		
+		return myAccounts;
+	}
 	
 	public void addAccount(Account theAccount, boolean vipFlag) {
 		System.out.println(getClass() + ": Doing my DB work: Adding an Account.\n");
@@ -38,5 +55,5 @@ public class AccountDAO {
 		System.out.println(getClass() + ": setServiceCode() is called.");
 		this.serviceCode = serviceCode;
 	}
-
+	
 }
