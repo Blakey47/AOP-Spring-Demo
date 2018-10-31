@@ -1,10 +1,9 @@
 package com.darraghblake.aopspringdemo;
 
-import java.util.List;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.darraghblake.aopspringdemo.dao.AccountDAO;
+import com.darraghblake.aopspringdemo.dao.MembershipDAO;
 
 public class MainDemoApp {
 
@@ -12,17 +11,26 @@ public class MainDemoApp {
 		
 		// Read Spring Config Java Class
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
-		
+				
 		// Get the Bean from the Spring container
 		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
+		MembershipDAO theMembershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
+				
+		// Call the business method
+		Account myAccount = new Account("John", 22);
+		theAccountDAO.addAccount(myAccount, true);
+		theAccountDAO.doWork();
+				
+		// Call the accountDAO getter/setter methods
+		theAccountDAO.setName("Account Name");
+		theAccountDAO.setServiceCode("Gold");	
 		
-		// Call method to find the accounts
-		List<Account> theAccounts = theAccountDAO.findAccount();
+		String name = theAccountDAO.getName();
+		String code = theAccountDAO.getServiceCode();
 		
-		// Display the accounts
-		System.out.println("\n\nMain Program: AfterReturningDemoApp\n");
-		
-		System.out.println(theAccounts + "\n");
+		// Call the membership business method
+		theMembershipDAO.addAccount();
+		theMembershipDAO.goTosleep();
 		
 		// Close the context
 		context.close();

@@ -1,6 +1,9 @@
 package com.darraghblake.aopspringdemo.aspect;
 
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -13,6 +16,17 @@ import com.darraghblake.aopspringdemo.Account;
 @Component
 @Order(2)
 public class MyDemoLoggingAspect {
+	
+	@AfterReturning(
+			pointcut="execution(* com.darraghblake.aopspringdemo.dao.AccountDAO.findAccounts(..))",
+			returning="result")
+	public void afterReturnFindAccountsAdvice(
+					JoinPoint theJoinPoint, List<Account> result) {
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("-------------------------------");
+		System.out.println("Executing @AfterReturn on method: " + method + "\n");
+		System.out.println("Result: " + result);
+	}
 	
 	@Before("com.darraghblake.aopspringdemo.aspect.AopExpressions.forDaoPackageNoGetterSetter()")
 	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {

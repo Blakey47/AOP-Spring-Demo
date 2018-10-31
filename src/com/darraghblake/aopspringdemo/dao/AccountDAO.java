@@ -13,7 +13,7 @@ public class AccountDAO {
 	private String name;
 	private String serviceCode;
 	
-	public List<Account> findAccount() {
+	public List<Account> findAccounts() {
 		List<Account> myAccounts = new ArrayList<>();
 		
 		Account tempAcc1 = new Account("Jerry", 25);
