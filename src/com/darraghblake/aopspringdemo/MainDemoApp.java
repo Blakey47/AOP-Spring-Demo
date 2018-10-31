@@ -1,9 +1,10 @@
 package com.darraghblake.aopspringdemo;
 
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.darraghblake.aopspringdemo.dao.AccountDAO;
-import com.darraghblake.aopspringdemo.dao.MembershipDAO;
 
 public class MainDemoApp {
 
@@ -14,23 +15,14 @@ public class MainDemoApp {
 		
 		// Get the Bean from the Spring container
 		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
-		MembershipDAO theMembershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
 		
-		// Call the business method
-		Account myAccount = new Account("John", 22);
-		theAccountDAO.addAccount(myAccount, true);
-		theAccountDAO.doWork();
+		// Call method to find the accounts
+		List<Account> theAccounts = theAccountDAO.findAccount();
 		
-		// Call the accountDAO getter/setter methods
-		theAccountDAO.setName("Account Name");
-		theAccountDAO.setServiceCode("Gold");	
+		// Display the accounts
+		System.out.println("\n\nMain Program: AfterReturningDemoApp\n");
 		
-		String name = theAccountDAO.getName();
-		String code = theAccountDAO.getServiceCode();
-		
-		// Call the membership business method
-		theMembershipDAO.addAccount();
-		theMembershipDAO.goTosleep();
+		System.out.println(theAccounts + "\n");
 		
 		// Close the context
 		context.close();
