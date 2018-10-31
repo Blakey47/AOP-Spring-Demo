@@ -12,3 +12,4 @@ Used for learning purposes.
 - JoinPoints
 - @AfterReturning Advice Type
 - @AfterThrowing Advice Type
+- @After Advice Type
