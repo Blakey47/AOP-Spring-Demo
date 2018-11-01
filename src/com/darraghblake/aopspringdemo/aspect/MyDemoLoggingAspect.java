@@ -31,7 +31,16 @@ public class MyDemoLoggingAspect {
 		printMethodName(theProceedingJoinPoint, "@Around");
 		
 		long begin = System.currentTimeMillis();
-		Object result = theProceedingJoinPoint.proceed();
+		Object result = null;
+		
+		try {
+			result = theProceedingJoinPoint.proceed();
+		} catch (Exception e) {
+			myLogger.warning(e.getMessage());
+			
+			result = "Exception has occurred.";
+		}
+		
 		long end = System.currentTimeMillis();
 		long duration = end - begin;
 		
