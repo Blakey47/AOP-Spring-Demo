@@ -38,7 +38,7 @@ public class MyDemoLoggingAspect {
 		} catch (Exception e) {
 			myLogger.warning(e.getMessage());
 			
-			result = "Exception has occurred.";
+			throw e;
 		}
 		
 		long end = System.currentTimeMillis();
